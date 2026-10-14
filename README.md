@@ -1,4 +1,9 @@
-# archaeo-prospektion
+# Pixel-and-brush
+
+Satellitenpixel treffen archäologische Spurensuche.
+
+GitHub: https://github.com/Tobias-Run/Pixel-and-brush (öffentlich).
+Python-Paket: `archaeo-prospektion`, CLI: `archaeo`.
 
 Lokale, reproduzierbare Pipeline für **statistische Kandidaten**, keine automatische
 Entdeckung von Ruinen. „Auffällig“ ist eine Statistik, „archäologisch“ eine fachliche

@@ -1,5 +1,5 @@
 # Arbeitsregeln
-- GitHub-Migration ist vom Nutzer autorisiert. Zielkonto und Sichtbarkeit vor Erstellung klären.
+- Öffentliches GitHub-Repo Tobias-Run/Pixel-and-brush ist vom Nutzer ausdrücklich autorisiert.
 - Nur Code, Tests und Dokumentation pushen; keine Daten, Bilder, Modellgewichte oder Exporte.
 - Keine Zugangsdaten, Rohdaten, Registerdaten oder Kandidatenkoordinaten committen.
 - CDSE_CLIENT_ID und CDSE_SECRET ausschließlich als Umgebungsvariablen.

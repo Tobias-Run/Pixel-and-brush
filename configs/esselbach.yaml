@@ -1,0 +1,24 @@
+# Esselbach (97839), erstes Testgebiet ca. 5 × 5 km um den Ortsmittelpunkt.
+# WGS84-BBox, aus ±2500 m in UTM32N abgeleitet; keine Gemeindegrenze.
+# Zeitraum: erste Vegetationsperiode als Arbeitsannahme, nicht fachlich validiert.
+aoi:
+  bbox: [9.498328, 49.827670, 9.568371, 49.872320]
+start: 2025-04-01
+end: 2025-09-30
+grid:
+  crs: EPSG:32632
+  resolution: 10
+  window_size: 128
+parameters:
+  threshold: 0.08
+  min_observations: 3
+  min_pixels: 2
+  context_radius: 3
+limits:
+  max_scenes: 12
+  max_pixels: 1000000
+  max_download_bytes: 1000000000
+paths:
+  cache: ../data/esselbach/cache
+  scenes: ../data/esselbach/scenes.json
+  output: ../exports/esselbach

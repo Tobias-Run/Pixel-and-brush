@@ -131,3 +131,11 @@ vorgesehen; niemals einchecken oder in Logs schreiben.
 
 Nicht enthalten: Deep Learning, Earth Engine, Weboberfläche, interaktive Karten,
 automatischer externer Registerabgleich.
+
+## Erstes reales Arbeitsgebiet
+
+[Esselbach (97839) und Umgebung](docs/Esselbach.md) ist mit ungefähr 5 × 5 km
+in `configs/esselbach.yaml` vorbereitet. Validierung:
+`archaeo validate-config configs/esselbach.yaml`. Der erste angenommene Zeitraum
+ist April–September 2025. Reale Daten und Ergebnisse liegen noch nicht vor.
+Bayerisches DGM1 (1 m, CC BY 4.0) ist als bevorzugte Terrainquelle dokumentiert.

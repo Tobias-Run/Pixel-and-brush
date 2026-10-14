@@ -139,3 +139,14 @@ in `configs/esselbach.yaml` vorbereitet. Validierung:
 `archaeo validate-config configs/esselbach.yaml`. Der erste angenommene Zeitraum
 ist April–September 2025. Reale Daten und Ergebnisse liegen noch nicht vor.
 Bayerisches DGM1 (1 m, CC BY 4.0) ist als bevorzugte Terrainquelle dokumentiert.
+
+## Lokales Vision-Modell
+
+`archaeo review-images` prüft vorbereitete PNG/JPEG-Bildausschnitte über einen
+lokalen Ollama-Vision-Server und exportiert kompakte, gecachte JSON-Befunde.
+Keine Cloud-Tokens, kein automatischer Modelldownload; statistische Scores bleiben
+unverändert. [Einrichtung und Grenzen](docs/LocalModel.md).
+
+GitHub darf ausschließlich Code, Tests und Dokumentation enthalten. Rohdaten,
+Koordinatenexporte, Bildausschnitte und Modellgewichte bleiben lokal. Die GitHub-
+Actions prüfen synthetische Daten und veröffentlichen keine Ergebnisartefakte.

@@ -1,0 +1,24 @@
+name: Offline checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.11', '3.12']
+    env:
+      MPLCONFIGDIR: /tmp/archaeo-mpl
+      XDG_CACHE_HOME: /tmp/archaeo-cache
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: pip install -e '.[dev]'
+      - run: ruff check src tests
+      - run: mypy --strict src
+      - run: pytest -q
+      - run: archaeo validate-config configs/esselbach.yaml
+      - run: archaeo demo

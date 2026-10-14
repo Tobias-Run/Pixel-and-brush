@@ -12,3 +12,14 @@ exports/
 *.jp2
 *.zip
 credentials*
+
+# Lokale Modellgewichte und Bildausschnitte
+models/
+*.gguf
+*.safetensors
+*.pt
+*.pth
+*.onnx
+*.png
+*.jpg
+*.jpeg

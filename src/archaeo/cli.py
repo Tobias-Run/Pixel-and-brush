@@ -94,3 +94,21 @@ def run(config: Path = Path("configs/example.yaml")) -> None:
         execute(cfg, scenes)
     except (ValueError, OSError) as exc:
         raise typer.BadParameter(str(exc)) from exc
+
+
+@app.command()
+def review_images(
+    folder: Path = typer.Argument(..., help="Lokale PNG/JPEG-Ausschnitte"),
+    model: str = typer.Option(..., help="Installiertes lokales Ollama-Vision-Modell"),
+    output: Path = Path("exports/local-review"),
+    max_images: int = 20,
+    port: int = 11434,
+) -> None:
+    """Bilder lokal vorprüfen; keine Cloud-Tokens und keine Score-Änderungen."""
+    from archaeo.local_model import OllamaClient, review_images as review
+
+    try:
+        result = review(folder, output, OllamaClient(model, port=port), max_images)
+    except (ValueError, OSError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    typer.echo(f"Lokale Modellvorschläge: {result}")

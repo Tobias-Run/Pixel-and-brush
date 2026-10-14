@@ -1,0 +1,21 @@
+aoi:
+  bbox: [9.0, 50.0, 9.009, 50.006]
+start: 2024-04-01
+end: 2024-09-30
+grid:
+  crs: EPSG:32632
+  resolution: 10
+  window_size: 32
+parameters:
+  threshold: 0.08
+  min_observations: 3
+  min_pixels: 2
+  context_radius: 3
+limits:
+  max_scenes: 12
+  max_pixels: 10000000
+  max_download_bytes: 1000000000
+paths:
+  cache: ../data/cache
+  scenes: ../data/scenes.json
+  output: ../exports/run

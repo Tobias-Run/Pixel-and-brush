@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools==80.9.0"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "archaeo-prospektion"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = ["numpy==2.3.5", "rasterio==1.4.3", "geopandas==1.1.1", "pyproj==3.7.2", "shapely==2.1.2", "typer==0.20.0", "PyYAML==6.0.3", "pydantic==2.13.4", "matplotlib==3.10.8"]
+[project.optional-dependencies]
+dev = ["ruff==0.14.2", "mypy==1.18.2", "pytest==8.4.2", "types-PyYAML==6.0.12.20250915"]
+[project.scripts]
+archaeo = "archaeo.cli:app"
+[tool.setuptools.packages.find]
+where = ["src"]
+[tool.ruff]
+line-length = 100
+[tool.mypy]
+strict = true
+[[tool.mypy.overrides]]
+module = ["rasterio.*", "geopandas.*", "matplotlib.*", "shapely.*", "pyproj.*"]
+ignore_missing_imports = true
+[tool.pytest.ini_options]
+testpaths = ["tests"]

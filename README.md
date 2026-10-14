@@ -107,6 +107,12 @@ vollständiger Lauf mit neuem Manifest gilt als Ergebnis. Nicht gleichzeitig in
 
 ## Referenzen, DEM und fachliche Bewertung
 
+**Must-have vor fachlich vorgeprüfter Priorisierung:** bekannte Strukturen
+abgleichen, wiederholte Sichtungen zusammenführen und manuelle Bewertungen dauerhaft
+erhalten. [Verbindliche Spezifikation und Abnahmekriterien](docs/KnownStructures.md).
+Der vorhandene einfache Register-Overlap erfüllt diese Anforderung noch nicht.
+
+
 Optionale `paths.register` (GeoJSON oder CSV mit `longitude,latitude` in WGS84)
 markiert lokale räumliche Überschneidungen, ohne daraus „bekannt/unbekannt“ abzuleiten.
 `paths.landuse` und `paths.historical_map` werden als lokale Referenzen im Bericht

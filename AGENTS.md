@@ -11,3 +11,6 @@
 
 - Visuelle Vorprüfung über lokale Modelle: Ollama mit OLLAMA_NO_CLOUD=1, nur Loopback.
 - Modellvorschläge getrennt von statistischen Scores; keine Fundstellenerkennung behaupten.
+
+- Must-have: docs/KnownStructures.md bei Änderungen an Kandidaten/Referenzen/Priorisierung beachten.
+- Kein Registertreffer bedeutet niemals unentdeckt. Score, Prüfpriorität und Registerstatus getrennt halten.

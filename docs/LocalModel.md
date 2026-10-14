@@ -40,8 +40,9 @@ archaeo review-images data/esselbach/tiles \
 
 Bilder sollten einen nachvollziehbaren Ausschnitt und einen Maßstab haben. Bei
 Hillshade dieselbe Geländeform mit mehreren Beleuchtungsrichtungen betrachten.
-Automatischer DGM-Download, Hillshade-Erstellung und Kandidaten-Cropping sind
-noch nicht integriert. Für diese Vorprüfung müssen die Bilder bereits vorliegen.
+DGM1-Download und Hillshade-Bildpakete stehen mit `fetch-dem`/`prepare-terrain`
+bereit. `review-batches` prüft die Pakete sequenziell. Automatisches Cropping nach
+archäologisch begründeten Kandidaten ist noch nicht implementiert.
 Ein synthetischer Transport-/CLI-Test kann `exports/demo/map.png` verwenden;
 diese Karte ist keine Grundlage zur Prüfung von Geländestrukturen.
 

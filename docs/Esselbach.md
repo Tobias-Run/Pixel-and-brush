@@ -15,8 +15,8 @@ archaeo validate-config configs/esselbach.yaml
 archaeo run --config configs/esselbach.yaml
 ```
 
-Szenen, Cache und Exporte sind getrennt von der synthetischen Demo. Es wurden
-keine realen Szenen heruntergeladen oder statistischen Kandidaten berechnet.
+Szenen, Cache und Exporte sind getrennt von der synthetischen Demo. Reale DGM1-Daten wurden lokal heruntergeladen und als Hillshade vorbereitet.
+Es wurden keine realen Sentinel-Szenen geladen oder Fundstellen identifiziert.
 Die konfigurierte 10-m-Auflösung gilt für Sentinel-NDVI, nicht für DGM1.
 
 ## Vorrangige Terrainquelle
@@ -36,9 +36,10 @@ Quellen, am 2026-10-14 gelesen:
 [offizielle Produktseite](https://geodaten.bayern.de/opengeodata/OpenDataDetail.html?pn=dgm1),
 [offizieller Metadatenkatalog](https://geodaten.bayern.de/opengeodata/json/opengeodata_datensaetze.json),
 [Datenhinweise](https://www.geodaten.bayern.de/odd/m/3/html/datenhinweise/datenhinweise_dgm.html).
-Die Produktverfügbarkeit ist bestätigt; konkrete Kacheln, Aufnahmejahre,
-Höhenbezug und lokale Qualität sind vor Verwendung noch zu prüfen.
-DEM-Download, Hillshade und Terrain-Auswertung sind derzeit nicht implementiert.
+36 Kacheln (126.295.458 Bytes) sind lokal geladen; Höhenbezug DHHN2016 laut
+Datenhinweisen. Vier Hillshades und 144 überlappende Bildpakete in acht Batches
+sind vorbereitet. Aufnahmejahre und lokale Qualität bleiben zu prüfen.
+Download und Bildvorbereitung sind implementiert, archäologische Auswertung nicht.
 
 Für die weitere Datenarbeit ist DGM1-Hillshade die bevorzugte Ergänzung zur
 Sentinel-Zeitserie; grobes SRTM ist hier nicht die erste Wahl. Registerabgleich

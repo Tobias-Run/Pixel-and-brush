@@ -112,3 +112,74 @@ def review_images(
     except (ValueError, OSError) as exc:
         raise typer.BadParameter(str(exc)) from exc
     typer.echo(f"Lokale Modellvorschläge: {result}")
+
+
+@app.command()
+def fetch_dem(config: Path = Path("configs/esselbach.yaml"), max_tiles: int = 64) -> None:
+    """Bayerisches DGM1 für die AOI herunterladen; lokale Daten bleiben gitignored."""
+    from archaeo.providers.dem import fetch_dem as download
+
+    try:
+        result = download(load_config(config), max_tiles=max_tiles)
+    except (ValueError, OSError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    typer.echo(f"Lokales DGM1-Manifest: {result}")
+
+
+@app.command()
+def prepare_terrain(
+    config: Path = Path("configs/esselbach.yaml"),
+    tile_size: int = 512,
+    overlap: int = 64,
+    max_pixels: int = 40000000,
+) -> None:
+    """Native DGM1-Hillshades und Bildpakete für lokale visuelle Prüfung erstellen."""
+    from archaeo.terrain import prepare_terrain as prepare
+
+    try:
+        cfg = load_config(config)
+        result = prepare(
+            cfg, cfg.paths.cache / "dgm1" / "manifest.json", tile_size, overlap, max_pixels
+        )
+    except (ValueError, OSError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    typer.echo(f"Terrain und Bildpakete: {result}")
+
+
+@app.command()
+def review_batches(
+    folder: Path = typer.Argument(...),
+    model: str = typer.Option(...),
+    output: Path = Path("exports/esselbach/local-review"),
+    max_batches: int = 10,
+) -> None:
+    """Vorbereitete Terrain-Pakete sequenziell lokal prüfen; Cache ermöglicht Wiederaufnahme."""
+    from archaeo.local_model import OllamaClient, review_images as review
+
+    try:
+        batches = sorted(p for p in folder.glob("batch-*") if p.is_dir())
+        if not 1 <= max_batches <= 100 or not batches or len(batches) > max_batches:
+            raise ValueError("Keine Bildpakete oder Paketlimit überschritten")
+        client = OllamaClient(model)
+        for i, batch in enumerate(batches, 1):
+            result = review(batch, output / batch.name, client, max_images=20)
+            typer.echo(f"{i}/{len(batches)}: {result}")
+    except (ValueError, OSError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+
+
+@app.command()
+def terrain_demo(
+    output: Path = Path("exports/terrain-demo"), data: Path = Path("data/terrain-demo")
+) -> None:
+    """Offline-Terrainweg mit synthetischem Relief, ohne Download oder Vision-Modell."""
+    from archaeo.demo import generate_terrain
+    from archaeo.terrain import prepare_terrain as prepare
+
+    try:
+        cfg, source = generate_terrain(data.resolve())
+        cfg.paths.output = output.resolve()
+        result = prepare(cfg, source, tile_size=256, overlap=32)
+    except (ValueError, OSError) as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    typer.echo(f"Synthetische Terrain-Demo: {result}")

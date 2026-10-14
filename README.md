@@ -114,7 +114,9 @@ vermerkt; fachlicher Abgleich bleibt manuell. Fehlende Referenzen sind dokumenti
 Lücken. Bewerte Kandidaten anhand der Quellen und dokumentiere Kontrollen und
 manuelle Urteile getrennt von statistischen Scores. Kein externer Registerabruf.
 
-DEM-Auswertung ist im MVP nicht implementiert. SRTM/Copernicus DEM sind grobe
+Bayerisches DGM1 kann jetzt heruntergeladen und als vier 1-m-Hillshades für die
+lokale Bildprüfung vorbereitet werden (`fetch-dem`, `prepare-terrain`). Terrain-
+Klassifikation und Kombination mit NDVI-Scores sind noch nicht implementiert. SRTM/Copernicus DEM sind grobe
 Oberflächenmodelle (Rasterweite und DSM/DTM bei Verwendung dokumentieren).
 Keine gleichwertige Erkennung kleiner Erdwerke behaupten. Vorhandene hochauflösende
 Laserscan-DTM und daraus berechnetes Hillshading haben Vorrang.
@@ -142,7 +144,8 @@ automatischer externer Registerabgleich.
 [Esselbach (97839) und Umgebung](docs/Esselbach.md) ist mit ungefähr 5 × 5 km
 in `configs/esselbach.yaml` vorbereitet. Validierung:
 `archaeo validate-config configs/esselbach.yaml`. Der erste angenommene Zeitraum
-ist April–September 2025. Reale Daten und Ergebnisse liegen noch nicht vor.
+ist April–September 2025. DGM1-Daten wurden lokal heruntergeladen und 144 Bildpakete vorbereitet; reale
+Sentinel-Szenen und archäologisch bewertete Ergebnisse liegen noch nicht vor.
 Bayerisches DGM1 (1 m, CC BY 4.0) ist als bevorzugte Terrainquelle dokumentiert.
 
 ## Lokales Vision-Modell
@@ -155,3 +158,15 @@ unverändert. [Einrichtung und Grenzen](docs/LocalModel.md).
 GitHub darf ausschließlich Code, Tests und Dokumentation enthalten. Rohdaten,
 Koordinatenexporte, Bildausschnitte und Modellgewichte bleiben lokal. Die GitHub-
 Actions prüfen synthetische Daten und veröffentlichen keine Ergebnisartefakte.
+
+## Windows-Startpaket und Terrain-Vorbereitung
+
+[Windows 11 / RTX 5060 Ti: Schrittfolge](docs/Windows.md).
+`./scripts/windows-start.ps1 -Stage Setup` installiert und prüft das Projekt;
+`-Stage Data` lädt DGM1 und erzeugt eine lokale Bildübersicht; `-Stage Review`
+prüft die Bildpakete sequenziell mit einem vorinstallierten lokalen Vision-Modell.
+
+Auch ohne Downloads/Modell läuft `archaeo terrain-demo` mit synthetischem Relief.
+`archaeo review-batches` verarbeitet mehrere Pakete und verwendet vorhandene Caches.
+Die Terrain-Pipeline ist separat vom Sentinel-Workflow; sie liefert Bildmaterial
+zur Prüfung und noch keine automatischen Terrain-Kandidaten.

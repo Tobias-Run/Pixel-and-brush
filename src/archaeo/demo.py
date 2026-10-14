@@ -58,3 +58,45 @@ def generate(root: Path) -> tuple[Config, list[Scene]]:
     ]
     (root / "scenes.json").write_text(json.dumps(manifest))
     return config, scenes
+
+
+def generate_terrain(root: Path) -> tuple[Config, Path]:
+    """Kleines synthetisches Relief zum netzwerkfreien Prüfen des Terrainwegs."""
+    from pyproj import Transformer
+    from archaeo.providers.dem import sha256
+
+    root.mkdir(parents=True, exist_ok=True)
+    inverse = Transformer.from_crs(25832, 4326, always_xy=True)
+    xmin, ymin = inverse.transform(538002, 5521490)
+    xmax, ymax = inverse.transform(538510, 5521998)
+    config = Config(
+        aoi=AOI(bbox=(xmin, ymin, xmax, ymax)), start=date(2025, 1, 1), end=date(2025, 12, 31)
+    )
+    y, x = np.mgrid[:512, :512]
+    z = 300 + 0.01 * x + 2 * np.sin(y / 90) + 0.7 * np.exp(-(((x - 250) / 3) ** 2))
+    z = z.astype("float32")
+    z[:5, :] = -9999
+    path = root / "synthetic-dtm.tif"
+    with rasterio.open(
+        path,
+        "w",
+        driver="GTiff",
+        width=512,
+        height=512,
+        count=1,
+        dtype="float32",
+        crs="EPSG:25832",
+        transform=from_origin(538000, 5522000, 1, 1),
+        nodata=-9999,
+    ) as dst:
+        dst.write(z, 1)
+    manifest = root / "manifest.json"
+    manifest.write_text(
+        json.dumps(
+            {
+                "source": "synthetic; no real terrain",
+                "tiles": [{"path": str(path.resolve()), "sha256": sha256(path)}],
+            }
+        )
+    )
+    return config, manifest
